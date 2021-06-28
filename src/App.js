@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import axios from "axios";
+import useSWR from "swr";
+
+const apiUrl = process.env.REACT_APP_GITHUB_API_URL;
+const instance = axios.create({
+  baseURL: apiUrl,
+  timeout: 3000,
+  headers: { Accept: "application/vnd.github.v3+json" },
+});
+
+const fetcher = (url) => instance.get(url).then((res) => res.data);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const { data, error } = useSWR("orgs/rxhealth/repos", fetcher, {
+    revalidateOnFocus: false,
+  });
+  if (error) alert("error occured");
+  console.log({ data });
+  return <p>Learn React</p>;
 }
 
 export default App;
