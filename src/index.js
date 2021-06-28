@@ -3,12 +3,22 @@ import ReactDOM from "react-dom";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { purple } from "@material-ui/core/colors";
+import { CssBaseline } from "@material-ui/core";
 
 import App from "./App";
 import MyTable from "./MyTable";
 import reportWebVitals from "./reportWebVitals";
 
 const theme = createMuiTheme({
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        html: {
+          WebkitFontSmoothing: 'auto',
+        },
+      },
+    },
+  },
   palette: {
     primary: {
       // Purple and green play nicely together.
@@ -24,6 +34,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <App />
       <MyTable />
     </ThemeProvider>
