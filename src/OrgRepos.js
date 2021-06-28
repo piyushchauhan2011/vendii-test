@@ -7,7 +7,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
+import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
+import Skeleton from "@material-ui/lab/Skeleton";
 import useSWR from "swr";
 import { formatDistance, subDays } from "date-fns";
 import fileSize from "filesize";
@@ -45,12 +47,13 @@ export default function OrgRepos() {
   }
 
   if (!data || !data.length) {
-    return <div>Loading...</div>;
+    return <Skeleton variant="rect" height={120} />;
   }
 
   const repos = data.map((repo) => ({
     id: repo.id,
     name: repo.name,
+    url: repo.html_url,
     stars: repo.stargazers_count,
     language: repo.language,
     license: repo.license?.name,
@@ -76,7 +79,9 @@ export default function OrgRepos() {
             {repos.map((repo) => (
               <TableRow key={repo.id}>
                 <TableCell component="th" scope="row">
-                  {repo.name}
+                  <Link href={repo.url} target="_blank">
+                    {repo.name}
+                  </Link>
                 </TableCell>
                 <TableCell align="right">{repo.stars}</TableCell>
                 <TableCell>{repo.language}</TableCell>
