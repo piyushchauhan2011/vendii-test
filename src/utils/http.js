@@ -8,4 +8,7 @@ const instance = axios.create({
   headers: { Accept: "application/vnd.github.v3+json" },
 });
 
-export const fetcher = (url) => instance.get(url).then((res) => res.data);
+export const fetcher = (url, page, offset) =>
+  instance
+    .get(`${url}?page=${page}&per_page=${offset}`)
+    .then((res) => res.data);
