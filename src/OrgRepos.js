@@ -20,6 +20,7 @@ const useStyles = makeStyles({
 });
 
 const ORG = process.env.REACT_APP_ORG;
+const FACEBOOK_REPOS_TOTAL_COUNT = 112;
 const ORG_REPOS_URL = `orgs/${ORG}/repos`;
 
 export default function OrgRepos() {
@@ -98,7 +99,7 @@ export default function OrgRepos() {
       <TablePagination
         rowsPerPageOptions={[10, 20, 30]}
         component="div"
-        count={100}
+        count={FACEBOOK_REPOS_TOTAL_COUNT}
         rowsPerPage={rowsPerPage}
         page={page - 1}
         onChangePage={handleChangePage}
