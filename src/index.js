@@ -6,7 +6,6 @@ import { purple } from "@material-ui/core/colors";
 import { CssBaseline } from "@material-ui/core";
 
 import App from "./App";
-import MyTable from "./MyTable";
 import reportWebVitals from "./reportWebVitals";
 
 const theme = createMuiTheme({
@@ -36,7 +35,6 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <App />
-      <MyTable />
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
