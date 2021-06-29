@@ -1,5 +1,7 @@
 # Vendii Github Assignment
 
+Open [https://boring-payne-c9920e.netlify.app/](https://boring-payne-c9920e.netlify.app/) to view
+
 ## Available Scripts
 
 In the project directory, you can run:
