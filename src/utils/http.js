@@ -13,5 +13,4 @@ export const fetcherWithParams = (url, page, offset) =>
     .get(`${url}?page=${page}&per_page=${offset}`)
     .then((res) => res.data);
 
-export const fetcher = (url, page, offset) =>
-  instance.get(`${url}`).then((res) => res.data);
+export const fetcher = (url) => instance.get(`${url}`).then((res) => res.data);
