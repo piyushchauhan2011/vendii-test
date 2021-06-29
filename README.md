@@ -27,3 +27,11 @@ Launches the test runner in the interactive watch mode.
 * responsive table behaviour
 * testing
 * folder structure
+* error handling
+
+### Apis used
+
+https://docs.github.com/en/rest/reference/repos#list-organization-repositories
+
+1. https://api.github.com/orgs/facebook/repos?per_page=100&page=1
+2. https://api.github.com/users/facebook
