@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createMuiTheme } from "@material-ui/core/styles";
+import {
+  unstable_createMuiStrictModeTheme as createMuiTheme,
+  CssBaseline,
+} from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import { purple } from "@material-ui/core/colors";
-import { CssBaseline } from "@material-ui/core";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -11,9 +13,9 @@ import reportWebVitals from "./reportWebVitals";
 const theme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
-      '@global': {
+      "@global": {
         html: {
-          WebkitFontSmoothing: 'auto',
+          WebkitFontSmoothing: "auto",
         },
       },
     },
