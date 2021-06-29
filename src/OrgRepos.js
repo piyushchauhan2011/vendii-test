@@ -73,7 +73,7 @@ export default function OrgRepos() {
     size: repo.size,
     updatedAt: repo.updated_at,
   }));
-  const reposCount = organizationData.public_repos;
+  const reposCount = organizationData ? organizationData.public_repos : 0;
 
   return (
     <div>
@@ -93,7 +93,7 @@ export default function OrgRepos() {
             {repos.map((repo) => (
               <TableRow key={repo.id}>
                 <TableCell component="th" scope="row">
-                  <Link href={repo.url} target="_blank">
+                  <Link href={repo.url} rel="noreferrer" target="_blank">
                     {repo.name}
                   </Link>
                 </TableCell>
