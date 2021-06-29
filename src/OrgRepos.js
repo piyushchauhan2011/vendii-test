@@ -13,7 +13,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import useSWR from "swr";
 import { formatDistance, subDays } from "date-fns";
 import fileSize from "filesize";
-import { fetcher } from "./utils/http";
+import { fetcher, fetcherWithParams } from "./utils/http";
 import { TablePaginationActions } from "./TablePaginationActions";
 
 const useStyles = makeStyles({
@@ -23,16 +23,28 @@ const useStyles = makeStyles({
 });
 
 const ORG = process.env.REACT_APP_ORG;
-const FACEBOOK_REPOS_TOTAL_COUNT = 112;
+
 const ORG_REPOS_URL = `orgs/${ORG}/repos`;
+const ORG_DETAILS_URL = `users/${ORG}`;
 
 export default function OrgRepos() {
   const classes = useStyles();
   const [page, setPage] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const { data, error } = useSWR([ORG_REPOS_URL, page, rowsPerPage], fetcher, {
-    revalidateOnFocus: false,
-  });
+  const { data: reposData, error: reposError } = useSWR(
+    [ORG_REPOS_URL, page, rowsPerPage],
+    fetcherWithParams,
+    {
+      revalidateOnFocus: false,
+    }
+  );
+  const { data: organizationData, error: organizationError } = useSWR(
+    ORG_DETAILS_URL,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+    }
+  );
 
   const handleChangePage = (event, currentPage) => {
     setPage(currentPage + 1);
@@ -43,15 +55,15 @@ export default function OrgRepos() {
     setPage(1);
   };
 
-  if (error) {
+  if (reposError || organizationError) {
     return <div>Error occurred...</div>;
   }
 
-  if (!data || !data.length) {
+  if (!reposData || !reposData.length) {
     return <Skeleton variant="rect" height={120} />;
   }
 
-  const repos = data.map((repo) => ({
+  const repos = reposData.map((repo) => ({
     id: repo.id,
     name: repo.name,
     url: repo.html_url,
@@ -61,6 +73,7 @@ export default function OrgRepos() {
     size: repo.size,
     updatedAt: repo.updated_at,
   }));
+  const reposCount = organizationData.public_repos;
 
   return (
     <div>
@@ -105,7 +118,7 @@ export default function OrgRepos() {
       <TablePagination
         rowsPerPageOptions={[10, 20, 30]}
         component="div"
-        count={FACEBOOK_REPOS_TOTAL_COUNT}
+        count={reposCount}
         rowsPerPage={rowsPerPage}
         page={page - 1}
         onChangePage={handleChangePage}
