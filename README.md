@@ -21,3 +21,9 @@ Launches the test runner in the interactive watch mode.
 
 - `yarn build`
 - `yarn start:prod`
+
+### Improvements
+
+* responsive table behaviour
+* testing
+* folder structure
