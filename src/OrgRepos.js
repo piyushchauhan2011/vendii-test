@@ -14,6 +14,7 @@ import useSWR from "swr";
 import { formatDistance, subDays } from "date-fns";
 import fileSize from "filesize";
 import { fetcher } from "./utils/http";
+import { TablePaginationActions } from "./TablePaginationActions";
 
 const useStyles = makeStyles({
   table: {
@@ -109,6 +110,7 @@ export default function OrgRepos() {
         page={page - 1}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
+        ActionsComponent={TablePaginationActions}
       />
     </div>
   );
